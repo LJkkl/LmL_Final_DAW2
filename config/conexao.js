@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
 
-const url = "mongodb+srv://luan:luan@classi.au203n7.mongodb.net/?retryWrites=true&w=majority&appName=Classi"
-
+import mongoose from 'mongoose'
+const url = "mongodb+srv://luandsjardim2006:aluno@cluster0.jfdngnk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 const conexao = await mongoose.connect(url)
-export default mongoose
+
+export default conexao

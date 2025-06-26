@@ -1,71 +1,67 @@
 <%- include('../cabecalho.ejs') %>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Jogador</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
 
 <body>
-  <div class="container">
-    <h1><i class="fas fa-edit"></i> Edição de Jogadores</h1>
-    <form method="post" enctype="multipart/form-data">
-      <label for="nome"><i class="fas fa-user"></i> Nome:</label>
-      <input
-        type="text"
-        id="nome"
-        name="nome"
-        value="<%= Jogador.nome %>"
-        required
-        placeholder="Digite o nome"
-      />
+    <h1><i class="fas fa-edit"></i> Edição de jogadores</h1>
+    <div class="container">
+        <form  method="post">
+            <label for="nome"><i class="fas fa-tshirt"></i> Nome:</label>
+            <input type="text" id="nome" name="nome" value="<%=Jogador.nome%>" required placeholder="Digite o nome">
+            
+            <label for="camisa"><i class="fas fa-landmark"></i> Camisa:</label>
+            <input type="text" id="camisa" name="camisa" value="<%=Jogador.camisa%>" required placeholder="Digite o número da camisa"> 
 
-      <label for="camisa"><i class="fas fa-hashtag"></i> Camisa:</label>
-      <input
-        type="number"
-        id="camisa"
-        name="camisa"
-        min="1"
-        max="99"
-        value="<%= Jogador.camisa %>"
-        required
-        placeholder="Número da camisa"
-      />
+            <label for="time"><i class="fas fa-landmark"></i> Time:</label>
+            <select id="time" name="time" required class="custom-select">
+                <option value="Time A" <%= Jogador.time === 'Time A' ? 'selected' : '' %>>Time A</option>
+                <option value="Time B" <%= Jogador.time === 'Time B' ? 'selected' : '' %>>Time B</option>
+                <option value="Time C" <%= Jogador.time === 'Time C' ? 'selected' : '' %>>Time C</option>
+            </select>
 
-      <label for="time"><i class="fas fa-landmark"></i> Time:</label>
-      <select id="time" name="time" class="form-control" required>
-        <option value="">Selecione o time</option>
-        <% Times.forEach(function (time) { %>
-        <option
-          value="<%= time.id %>"
-          <%= time.id.toString() === Jogador.time?.toString() ? "selected" : "" %>
-        >
-          <%= time.nome %>
-        </option>
-        <% }) %>
-      </select>
+            <label for="posicao"><i class="fas fa-landmark"></i> Posição:</label>
+            <select id="posicao" name="posicao" required class="custom-select">
+                <option value="Atacante" <%= Jogador.posicao === 'Atacante' ? 'selected' : '' %>>Atacante</option>
+                <option value="Meia" <%= Jogador.posicao === 'Meia' ? 'selected' : '' %>>Meia</option>
+                <option value="Defensor" <%= Jogador.posicao === 'Defensor' ? 'selected' : '' %>>Defensor</option>
+            </select>
+            
+            <button type="submit" class="btn"><i class="fas fa-save"></i>&nbsp;Efetuar Edição</button>
+            <a href="/admin/time/lst" class="btn cancelar">Cancelar</a>
+        </form>
+    </div>
 
-      <label for="posicao"><i class="fas fa-map-marker-alt"></i> Posição:</label>
-      <select id="posicao" name="posicao" required>
-        <option value="">Selecione a posição</option>
-        <option value="Atacante" <%= Jogador.posicao === "Atacante" ? "selected" : "" %>>
-          Atacante (Ata)
-        </option>
-        <option value="Meio-Campo" <%= Jogador.posicao === "Meio-Campo" ? "selected" : "" %>>
-          Meio-Campo (Mei)
-        </option>
-        <option value="Defensor" <%= Jogador.posicao === "Defensor" ? "selected" : "" %>>
-          Defensor (Def)
-        </option>
-        <option value="Goleiro" <%= Jogador.posicao === "Goleiro" ? "selected" : "" %>>
-          Goleiro (Gol)
-        </option>
-      </select>
+    <div class="container">
+        <form action="" method="post">
+            <label for="nome"><i class="fas fa-user"></i> Nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Digite o nome">
 
-      <img src="/imagem/<%= Jogador.fotoJog %>" class="foto" alt="Foto do Jogador" />
-      <label for="fotoJog">Foto:</label>
-      <input type="file" id="fotoJog" name="fotoJog" />
+            <label for="ncamisa"><i class="fas fa-ruler-vertical"></i> Numero da camisa</label>
+            <input type="text" id="ncamisa" name="ncamisa" placeholder="Digite o numero da camisa">
 
-      <button type="submit" class="btn">
-        <i class="fas fa-save"></i> Efetuar Edição
-      </button>
-    </form>
-  </div>
+            <label for="time"><i class="fas fa-weight"></i> Time</label>
+            <select id="time" name="time" class="custom-select">
+                <option value="Time A">Time A</option>
+                <option value="Time B">Time B</option>
+                <option value="Time C">Time C</option>
+            </select>
+
+            <label for="posicao"><i class="fas fa-map-marker-alt"></i> Posição</label>
+            <select id="posicao" name="posicao" class="custom-select">
+                <option value="Atacante">Atacante</option>
+                <option value="Meia">Meia</option>
+                <option value="Defensor">Defensor</option>
+            </select>
+            
+            <button type="submit"><i class="fas fa-save"></i> Efetuar Edição</button>
+        </form>
+    </div>
 </body>
 
 </html>

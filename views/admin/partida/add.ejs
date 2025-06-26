@@ -1,71 +1,29 @@
 <%- include('../cabecalho.ejs') %>
-
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sdiciona partidas concluidas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
 <body>
-  <div class="container">
+  <form action="" method="post">
     <h1><i class="fas fa-users"></i> Mais partidas</h1>
-    <form action="" method="post">
-      <div class="form-group">
-        <label for="timedecasa"><i class="fas fa-tshirt"></i> Time da Casa</label>
-        <select id="timedecasa" name="timedecasa" required>
-          <option value="">Selecione</option>
-          <% Times.forEach(function(time) { %>
-            <option value="<%= time.id %>"><%= time.nome %></option>
-          <% }) %>
-        </select>
-      </div>
+    <label for="nome"><i class="fas fa-tshirt"></i> Nome</label>
+    <input type="text" id="nome" name="nome" placeholder="Digite o nome">
+    
+    <label for="altura"><i class="fas fa-landmark"></i> Estadio</label>
+    <input type="text" id="altura" name="altura" placeholder="Digite a altura">
 
-      <div class="form-group">
-        <label for="timedefora"><i class="fas fa-tshirt"></i> Time de Fora</label>
-        <select id="timedefora" name="timedefora" required>
-          <option value="">Selecione</option>
-          <% Times.forEach(function(time) { %>
-            <option value="<%= time.id %>"><%= time.nome %></option>
-          <% }) %>
-        </select>
-      </div>
+    <label for="altura"><i class="fas fa-landmark"></i> Classificação</label>
+    <input type="text" id="altura" name="altura" placeholder="Digite a altura">
 
-      <div class="form-group">
-        <label for="golcasa"><i class="fas fa-futbol"></i> Gol Casa</label>
-        <input
-          type="number"
-          id="golcasa"
-          name="golcasa"
-          min="0"
-          max="99"
-          placeholder="Digite o Gol Casa"
-          required
-        >
-      </div>
-
-      <div class="form-group">
-        <label for="golfora"><i class="fas fa-futbol"></i> Gol Fora</label>
-        <input
-          type="number"
-          id="golfora"
-          name="golfora"
-          min="0"
-          max="99"
-          placeholder="Digite o Gol Fora"
-          required
-        >
-      </div>
-
-      <div class="form-group">
-        <label for="datapartida"><i class="fas fa-calendar-alt"></i> Data da Partida</label>
-        <input
-          type="date"
-          id="datapartida"
-          name="datapartida"
-          placeholder="Digite a data da partida"
-          required
-        >
-      </div>
-
-      <button type="submit" class="btn">
-        <i class="fas fa-plus icon"></i> Aumentar concorrência!
-      </button>
-    </form>
-  </div>
+    <label for="datafundacao"><i class="fas fa-landmark"></i> Data de fundação</label>
+    <input type="text" id="datafundacao" name="datafundacao" placeholder="Digite a data de fundação">
+    
+    
+    
+    <button type="submit"><i class="fas fa-plus icon"></i> Aumentar concorrencia!</button>
+  </form>
 </body>
-
 </html>

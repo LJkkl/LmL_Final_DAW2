@@ -1,87 +1,17 @@
 import Time from '../models/time.js';
 import Jogador from '../models/jogador.js';
-import Partida from '../models/partida.js';
-
-export const home = async (req, res) => {
-    const times = await Time.find();
-    const partidas = await Partida.find()
-      .populate("timedecasa")
-      .populate("timedefora");
-  
-    const classificacao = times.map(time => {
-      let pontos = 0,
-          vitorias = 0,
-          empates = 0,
-          derrotas = 0,
-          golsPro = 0,
-          golsContra = 0; 
-  
-      partidas.forEach(partida => {
-        const isCasa = partida.timedecasa._id.equals(time._id);
-        const isFora = partida.timedefora._id.equals(time._id);
-  
-        if (isCasa || isFora) {
-          const golsFeitos = isCasa ? partida.golcasa : partida.golfora;
-          const golsSofridos = isCasa ? partida.golfora : partida.golcasa;
-  
-          golsPro += golsFeitos;
-          golsContra += golsSofridos;
-  
-          if (golsFeitos > golsSofridos) {
-            vitorias++;
-            pontos += 3;
-          } else if (golsFeitos === golsSofridos) {
-            empates++;
-            pontos += 1;
-          } else {
-            derrotas++;
-          }
-        }
-      });
-  
-      return {
-        nome: time.nome,
-        pontos,
-        vitorias,
-        empates,
-        derrotas,
-        golsPro,
-        golsContra,
-        saldo: golsPro - golsContra
-      };
-    });
-  
-    classificacao.sort((a, b) => b.pontos - a.pontos || b.saldo - a.saldo);
-  
-    res.render("admin/index", {
-      classificacao,
-      times,
-      partidas
-    });
-  };
-
-
-
+export async function home(req, res) {
+    res.render('admin/index')
+}
 export async function abreaddtime(req, res) {
     res.render('admin/time/add')
 }
 export async function addtime(req, res) {
-    var escudoupload=null
-    if(req.file!=null)
-{
-    escudoupload=req.file.filename
-}
-else
-{
-    escudoupload=null
-}
     await Time.create({
         nome:req.body.nome,
         estadio:req.body.estadio,
         classificacao:req.body.classificacao,
-        datafundacao:req.body.datafundacao,
-        pontos: 0,
-        escudo:escudoupload
+        datafundacao:req.body.datafundacao
     })
     res.redirect('/admin/time/add')
 }
@@ -103,61 +33,25 @@ export async function abreedttime(req, res){
     res.render('admin/time/edt',{Time: resultado})
 }
 export async function edttime(req, res){
-    var escudoupload=null
-    if(req.file!=null)
-    {
-        escudoupload=req.file.filename
-    }
-    else if(req.body.escudoatual!="")
-    {
-        escudoupload=req.body.escudoatual
-    }
-    else
-    {
-        escudoupload=null
-    }
-    console.log(escudoupload)   
-    await Time.findByIdAndUpdate(req.params.id, {
-    nome:req.body.nome,
-    estadio:req.body.estadio,
-    escudo:escudoupload
-    })
+    await Time.findByIdAndUpdate(req.params.id, req.body)
     res.redirect('/admin/time/lst')
 }
 
 
-
 export async function abreaddjogador(req, res) {
-    const resultado = await Time.find({}).catch(function(err){console.log(err)})
-    res.render('admin/jogador/add',{Times:resultado})
+    res.render('admin/jogador/add')
 }
 export async function addjogador(req, res) {
-    var jtime = null;
-    var fotoUpload=null
-    if(req.body.time!=null)
-    {
-        jtime = await Time.findById(req.body.time)
-    }
-    
-    if(req.file!=null)
-{
-    fotoUpload=req.file.filename
-}
-else
-{
-    fotoUpload=null
-}
     await Jogador.create({
         nome:req.body.nome,
         camisa:req.body.camisa,
-        time:jtime,
-        posicao:req.body.posicao,
-        fotoJog:fotoUpload
+        time:req.body.time,
+        posicao:req.body.posicao
     })
     res.redirect('/admin/jogador/add')
 }
 export async function listarjogador(req, res) {
-    const resultado = await Jogador.find({}).populate('time').catch(function(err){console.log(err)});
+    const resultado = await Jogador.find({}).catch(function(err){console.log(err)});
     res.render('admin/jogador/lst',{Jogados: resultado});
 }
 export async function filtrarjogador(req, res) {
@@ -171,166 +65,34 @@ export async function deletajogador(req, res) {
 }
 export async function abreedtjogador(req, res){
     const resultado = await Jogador.findById(req.params.id)
-    const jtimes = await Time.find({}).catch(function(err){console.log(err)})
-    res.render('admin/jogador/edt',{Jogador: resultado,Times:jtimes})
-}
+    res.render('admin/jogador/edt',{Jogador: resultado})
+}   
 export async function edtjogador(req, res){
-    var fotoUpload=null
-    if(req.file!=null)
-    {
-        fotoUpload=req.file.filename
-    }
-    else if(req.body.fotoatual!="")
-    {
-        fotoUpload=req.body.fotoatual
-    }
-    else
-    {
-        fotoUpload=null
-    }
-    console.log(fotoUpload)   
-    await Jogador.findByIdAndUpdate(req.params.id, {
-        nome: req.body.nome,
-        camisa: req.body.camisa,
-        time: req.body.time,
-        posicao: req.body.posicao,
-        fotoJog: fotoUpload
-    });
+    await Jogador.findByIdAndUpdate(req.params.id, req.body)
     res.redirect('/admin/jogador/lst')
 }
 
 
-
-
 export async function abreaddpartida(req, res) {
-    const resultado = await Time.find({}).catch(function(err){console.log(err)})
-    res.render('admin/partida/add',{Times:resultado})
+    res.render('admin/partida/add')
 }
 export async function addpartida(req, res) {
-    const timeCasa = await Time.findById(req.body.timedecasa);
-    const timeFora = await Time.findById(req.body.timedefora);
-    var pontocasa, pontofora
-
-    if (req.body.golcasa > req.body.golfora) {
-        pontocasa = 3;
-        pontofora = 0;
-    } else if (req.body.golcasa < req.body.golfora) {
-        pontofora = 3;
-        pontocasa = 0
-    } else {
-        pontocasa = 1;
-        pontofora = 1;
-    }
-    await Partida.create({ 
-        timedecasa: timeCasa,
-        timedefora: timeFora,
-        golcasa: req.body.golcasa,
-        golfora: req.body.golfora,
-        datapartida: req.body.datapartida,       
-    })
-    timeCasa.pontos = timeCasa.pontos+pontocasa;
-    timeFora.pontos = timeFora.pontos+pontofora;
-
-    await timeCasa.save()
-    await timeFora.save()
-    res.redirect('/admin/partida/add');
-
+    res.redirect('/admin/partida/add')
 }
 export async function listarpartida(req, res) {
-    const resultado = await Partida.find({})
-    .populate('timedecasa')
-    .populate('timedefora')
-    .catch(function(err){console.log(err)});
-    res.render('admin/partida/lst',{Partidas: resultado});
+    res.render('admin/partida/lst','')
 }
 export async function filtrarpartida(req, res) {
-    const resposta = await Partida.find({nome: new RegExp(req.body.pesquisar,"i")})
-    res.render('admin/partida/lst',{Partidas: resposta});
+    res.render('admin/partida/lst','')
 }
 
 export async function deletapartida(req, res) {
-    await Partida.findByIdAndDelete(req.params.id)
+   res.redirect('/admin/partida/lst')
+}
+export async function abreedtpartida(req, res){
+   
+    res.render('admin/partida/edt','')
+}
+export async function edtpartida(req, res){
     res.redirect('/admin/partida/lst')
 }
-
-export async function abreedtpartida(req, res){
-    const resultado = await Partida.findById(req.params.id)
-    const jtimes = await Time.find({}).catch(function(err){console.log(err)})
-    res.render('admin/partida/edt',{Partida: resultado,Times:jtimes})
-}
-
-export async function edtpartida(req, res){
-    const partida = await Partida.findById(req.params.id);
-
-    const timeCasa = await Time.findById(partida.timedecasa);
-    const timeFora = await Time.findById(partida.timedefora);
-
-    
-    const golsAntigosCasa = partida.golcasa;
-    const golsAntigosFora = partida.golfora;
-       
-
-    
-    if (golsAntigosCasa > golsAntigosFora) {
-        timeCasa.pontos -= 3;
-    } else if (golsAntigosCasa < golsAntigosFora) {
-        timeFora.pontos -= 3;
-    } else {
-        timeCasa.pontos -= 1;
-        timeFora.pontos -= 1;
-    }
-
-   
-    const novoGolCasa = parseInt(req.body.golcasa);
-    const novoGolFora = parseInt(req.body.golfora);
-
-    if (novoGolCasa > novoGolFora) {
-        timeCasa.pontos += 3;
-    } else if (novoGolCasa < novoGolFora) {
-        timeFora.pontos += 3;
-    } else {
-        timeCasa.pontos += 1;
-        timeFora.pontos += 1;
-    }
-
-    await Partida.findByIdAndUpdate(req.params.id, {
-        golcasa: novoGolCasa,
-        golfora: novoGolFora,
-        datapartida: req.body.datapartida,
-    });
-
-    await timeCasa.save();
-    await timeFora.save();
-
-    res.redirect('/admin/partida/lst');
-}
-
-
-//edição de gols
-/*else if (req.body.golcasa > req.body.golfora) {
-    pontocasa = 3;
-    pontofora = -3;
-} 
-else if(req.body.golcasa < req.body.golfora) {
-    pontocasa = -3;
-    pontofora = 3;
-} 
-else if(req.body.golcasa == req.body.golfora){
-    pontocasa = -2;
-    pontofora = 1;
-}
-else if(req.body.golcasa == req.body.golfora){
-    pontocasa = 1;
-    pontofora = -2;
-}
-
-*/
-     
-/*
-          funccion para desfazier cagadióis 
-
-const partidas = await Partida.find().populate('timedecasa timedefora')
-const ruins = partidas.filter(p => !p.timedecasa || !p.timedefora)
-await Partida.deleteMany({_id: { $in: ruins.map(p => p._id)}})
-
-*/

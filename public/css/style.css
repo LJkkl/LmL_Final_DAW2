@@ -1,25 +1,25 @@
 /* Configuração Geral */
 body {
-    background-color: #F4F4F9;
-    color: #2C3E50;
-    font-family: 'Poppins', sans-serif;
-    padding: 0;
+    background-color: #F4F4F9; /* Cor de fundo suave e clara */
+    color: #2C3E50; /* Cor de texto escura para contraste */
+    font-family: 'Poppins', sans-serif; /* Fonte 'Poppins' */
     margin: 0;
+    padding: 0;
 }
 
 /* Cabeçalhos */
 h1 {
-    text-align: center;
-    color: #2980B9;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
+    text-align: center; /* Centraliza o título */
+    color: #2980B9; /* Azul claro e profissional */
+    text-transform: uppercase; /* Maiúsculas */
+    letter-spacing: 2px; /* Aumenta o espaçamento */
+    margin-bottom: 20px; /* Espaço abaixo do título */
 }
 
 /* Cabeçalho e Menu */
 header {
     background-color: #3498DB;
-    padding: 20px 0;
+    padding: 10px 0;
     text-align: center;
 }
 
@@ -31,6 +31,7 @@ header h1 {
     letter-spacing: 2px;
 }
 
+/* Navegação */
 nav {
     background-color: #FFF;
     padding: 15px 0;
@@ -42,7 +43,6 @@ nav ul {
     display: flex;
     justify-content: center;
     gap: 30px;
-    padding: 0;
     margin: 0;
 }
 
@@ -73,47 +73,7 @@ nav a:hover {
     align-items: center;
 }
 
-/* Topo da Lista */
-.top-bar {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-}
-
-.search-bar {
-    display: flex;
-    gap: 10px;
-}
-
-.search-bar input {
-    width: 250px;
-    padding: 10px;
-    border: 1px solid #BDC3C7;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.search-bar button {
-    padding: 10px 20px;
-    background-color: #3498DB;
-    border: none;
-    border-radius: 5px;
-    color: #FFF;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.search-bar button:hover {
-    background-color: #2980B9;
-    transform: scale(1.05);
-}
-
-/* Botões */
+/* Botões principais */
 button, .add-button a {
     display: inline-flex;
     align-items: center;
@@ -145,7 +105,6 @@ table {
 
 th, td {
     padding: 15px;
-    border: 1px solid #BDC3C7;
     text-align: left;
 }
 
@@ -160,29 +119,9 @@ td {
     color: #34495E;
 }
 
-td a {
-    display: inline-block;
-    background-color: #E67E22;
-    padding: 8px 15px;
-    margin-right: 5px;
-    border-radius: 5px;
-    color: #FFF;
-    text-decoration: none;
-    transition: background-color 0.3s, transform 0.2s;
-    font-size: 14px;
-}
-
-td a:hover {
-    background-color: #D35400;
-    transform: scale(1.05);
-}
-
-td a[href*="/del"] {
-    background-color: #C0392B;
-}
-
-td a[href*="/del"]:hover {
-    background-color: #922B21;
+/* Remove as bordas internas da tabela */
+th, td {
+    border: none;
 }
 
 tr:nth-child(even) {
@@ -194,13 +133,40 @@ tr:hover {
     cursor: pointer;
 }
 
-/* Imagem do escudo */
-.foto {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+/* Botões de Ação (Excluir, Editar) */
+button.delete-button {
+    background-color: #E74C3C;
+    color: #FFF;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button.delete-button:hover {
+    background-color: #C0392B;
+    transform: scale(1.05);
+}
+
+a.btn.edit {
+    display: inline-flex;
+    align-items: center;
+    font-size: 1rem;
+    padding: 8px 15px;
+    border-radius: 5px;
+    margin-left: 5px;
+    background-color: #2980B9;
+    color: #FFF;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+a.btn.edit:hover {
+    background-color: #1F6A8B;
+    transform: scale(1.05);
 }
 
 /* Formulário */
@@ -244,7 +210,7 @@ input:focus {
 }
 
 /* Botão de Submit */
-button {
+button[type="submit"] {
     width: 100%;
     padding: 15px;
     background-color: #3498DB;
@@ -257,48 +223,52 @@ button {
     transition: background-color 0.3s, transform 0.2s;
 }
 
-button:hover {
+button[type="submit"]:hover {
     background-color: #2980B9;
     transform: scale(1.05);
 }
 
-/* Estilo para o Select */
-select {
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+
+    .add-button a {
+        padding: 10px 15px;
+    }
+
+    /* Ajuste no tamanho dos botões em telas menores */
+    button, .add-button a {
+        padding: 10px 15px;
+    }
+
+    button.delete-button {
+        padding: 10px 15px;
+    }
+}
+.custom-select {
     width: 100%;
     padding: 12px;
-    margin-bottom: 20px;
     border: 1px solid #BDC3C7;
     border-radius: 5px;
     background-color: #ECF0F1;
     font-size: 16px;
     color: #34495E;
-    transition: background-color 0.3s, border-color 0.3s;
+    appearance: none; /* Remove a aparência padrão */
+
     cursor: pointer;
-    appearance: none;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
-select:focus {
-    background-color: #FFF;
-    outline: 1px solid #3498DB;
-}
 
-.select-container {
-    position: relative;
-    width: 100%;
-}
 
-.select-container::after {
-    content: "\f078";
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-    position: absolute;
-    top: 50%;
-    right: 15px;
-    transform: translateY(-50%);
-    color: #3498DB;
-    pointer-events: none;
-}
 
-select:hover {
-    background-color: #D5DBDB;
-}

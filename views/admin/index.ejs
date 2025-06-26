@@ -1,23 +1,23 @@
 <%- include('cabecalho.ejs') %>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menu Administrativo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Administrativo</title>
 
-  <!-- FontAwesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Importação dos ícones do FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-  <!-- Fonte Poppins -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Importação da fonte Poppins do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <!-- CSS customizado -->
-  <link rel="stylesheet" href="/css/style.css">
+    <!-- Link para o CSS que você forneceu -->
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-  <h1>🏆 Classificação do Torneio</h1>
-
+  <h1><i class="fas fa-futbol"></i> Menu</h1>
   <div class="container">
+    
 
     <!-- Tabela de Classificação -->
     <table>
@@ -25,33 +25,37 @@
         <tr>
           <th>Posição</th>
           <th>Time</th>
-          <th>Pts</th>
-          <th>Vitórias</th>
-          <th>Empates</th>
-          <th>Derrotas</th>
-          <th>GP</th>
-          <th>GC</th>
-          <th>Saldo</th>
+          <th>Gols</th>
+          <th>Pontos</th>
+          <th>Ação</th>
         </tr>
       </thead>
       <tbody>
-        <% classificacao.forEach((time, i) => { %>
-          <tr>
-            <td><%= i + 1 %>º</td>
-            <td><%= time.nome %></td>
-            <td><%= time.pontos %></td>
-            <td><%= time.vitorias %></td>
-            <td><%= time.empates %></td>
-            <td><%= time.derrotas %></td>
-            <td><%= time.golsPro %></td>
-            <td><%= time.golsContra %></td>
-            <td><%= time.saldo %></td>
-          </tr>
-        <% }) %>
+        <tr>
+          <td>1</td>
+          <td>Time A</td>
+          <td>10</td>
+          <td>30</td>
+ 
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Time B</td>
+          <td>8</td>
+          <td>28</td>
+         
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Time C</td>
+          <td>7</td>
+          <td>24</td>
+          
+        </tr>
       </tbody>
     </table>
-    
-
   </div>
+
 </body>
 </html>
+

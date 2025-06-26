@@ -1,41 +1,59 @@
 <%- include('../cabecalho.ejs') %>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>partidas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+     <link rel="stylesheet" href="/css/style.css">
+</head>
+
 <body>
-    <h1><i class="fas fa-futbol"></i> Partidas</h1>
-
+    <h1><i class="fas fa-futbol"></i> partidas</h1>
     <div class="container">
-        <div class="top-bar">
-            <div class="add-button">
-                <a href="/admin/partida/add"><i class="fas fa-user-plus icon"></i> Adicionar Partida</a>
-            </div>
+        <div class="add-button">
+            <a href="/admin/partida/add"><i class="fas fa-user-plus icon"></i> Aumentar Elenco</a>
         </div>
-
+    
+       
         <table>
-            <thead>
-                <tr>
-                    <th><i class="fas fa-home"></i> Time da Casa</th>
-                    <th><i class="fas fa-futbol"></i> Resultado</th>
-                    <th><i class="fas fa-plane"></i> Time de Fora</th>
-                    <th><i class="fas fa-calendar-alt"></i> Data da Partida</th>
-                    <th><i class="fas fa-tools"></i> Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% Partidas.forEach(function(partida) { %>
-                    <tr>
-                        <td><%= partida.timedecasa.nome %></td>
-                        <td><%= partida.golcasa %> x <%= partida.golfora %></td>
-                        <td><%= partida.timedefora.nome %></td>
-                        <td><%= partida.datapartida %></td>
-                        <td>
-                            <a href="/admin/partida/edt/<%= partida.id %>"><i class="fas fa-edit"></i> Editar</a>
-                            <a href="/admin/partida/del/<%= partida.id %>" onclick="return confirm('Tem certeza que deseja excluir esta partida?')">
-                                <i class="fas fa-trash-alt"></i> Excluir
-                            </a>
-                        </td>
-                    </tr>
-                <% }) %>
-            </tbody>
+            <tr>
+                <th><i class="fas fa-tshirt"></i> Nome</th>
+                <th><i class="fas fa-landmark"></i></i> Estádio</th>
+                <th> <i class="fas fa-trophy"></i></i> Classificação</th>
+                <th> <i class="fas fa-trophy"></i></i> Data fundação</th>
+                
+                <th><i class="fas fa-tools"></i> Ações</th>
+               
+            </tr>
+            <tr>
+                <td>Gremio</td>
+                <td>morumbii</td>
+                <td>primeiro</td>
+                <td>12/12/2006</td>
+            
+                <td>
+                    <a href="/admin/partida/edt/:id"><i class="fas fa-edit icon"></i>melhorar</a>
+                    <a href="/admin/partida/del/:id" class="delete-button"><i
+                            class="fas fa-trash-alt icon"></i>Excluir</a>
+
+                </td>
+            </tr>
+            <tr>
+                <td>inter</td>
+                <td>bento freitas</td>
+                <td>segundo</td>
+                <td>12/09/2004</td>
+            
+                </td>
+                <td>
+                    <a href="/admin/time/edt/:id"><i class="fas fa-edit icon"></i>melhorar</a>
+                    <a href="/admin/time/del/:id" class="delete-button"><i
+                            class="fas fa-trash-alt icon"></i>Excluir</a>
+                  
+                </td>
+            </tr>
+            
         </table>
     </div>
 </body>
